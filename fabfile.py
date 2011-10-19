@@ -22,7 +22,7 @@ def delete():
     Checks if configuration file already exists; if it does, deletes it.
     """
     if os.path.exists(CONFIG_DIR):
-        local("/bin/rm %s" % CONFIG_DIR)
+        local("/bin/rm -rf %s" % CONFIG_DIR)
 
 
 def install():
