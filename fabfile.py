@@ -16,12 +16,14 @@ CONFIG_FILE = os.path.join(CONFIG_DIR, "rc.lua")
 LOCAL_DIR = os.path.realpath(os.path.dirname(__file__))
 AWESOME = "/usr/bin/awesome"
 
+
 def delete():
     """
     Checks if configuration file already exists; if it does, deletes it.
     """
     if os.path.exists(CONFIG_DIR):
         local("/bin/rm %s" % CONFIG_DIR)
+
 
 def install():
     """
@@ -30,13 +32,16 @@ def install():
     delete()
     link()
 
+
 def link():
     """
     Links configuration file to the one contained in this repository.
     """
     local("/bin/ln -s %s %s" % (LOCAL_DIR, CONFIG_DIR))
-    if local("%s --config %s --check" % (AWESOME, CONFIG_FILE)):
+    if local("%s --config %s --check" % (AWESOME, CONFIG_FILE)).\
+            return_code == 0:
         print green("You can reload your new configuration (or start) "\
                 "Awesome WM.")
     else:
-        print red("There is some problem with configuration file")
+        print red("There is some problem with configuration file %s" %
+                CONFIG_FILE)
