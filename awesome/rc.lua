@@ -40,21 +40,21 @@ editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
 -- {{ Variables for Applications 
-terminator = "/usr/bin/terminator -m -b"
-chrome = "/usr/bin/google-chrome"
-calculator = "/usr/bin/gnome-calculator"
-chrome_mail = chrome .. " http://mail.google.com"
-amixer = "/usr/bin/amixer"
-amixer_lower = amixer .. " -q sset PCM 2dB-"
-amixer_raise = " -q sset PCM 2dB+"
-nautilus = "/usr/bin/nautilus --no-desktop"
-gvim = "/usr/bin/gvim"
-pidgin = "/usr/bin/pidgin"
-skype = "/usr/bin/skype"
-clementine = "/usr/bin/clementine"
-qsynergy = "/usr/bin/quicksynergy"
-dropbox = "/usr/bin/dropbox"
-dropbox_start = dropbox .. " start"
+    terminator = "/usr/bin/terminator -m -b"
+    chrome = "/usr/bin/google-chrome"
+    calculator = "/usr/bin/gnome-calculator"
+    chrome_mail = chrome .. " http://mail.google.com"
+    amixer = "/usr/bin/amixer"
+    amixer_lower = amixer .. " -q sset PCM 2dB-"
+    amixer_raise = " -q sset PCM 2dB+"
+    nautilus = "/usr/bin/nautilus --no-desktop"
+    gvim = "/usr/bin/gvim"
+    pidgin = "/usr/bin/pidgin"
+    skype = "/usr/bin/skype"
+    clementine = "/usr/bin/clementine"
+    qsynergy = "/usr/bin/quicksynergy"
+    dropbox = "/usr/bin/dropbox"
+    dropbox_start = dropbox .. " start"
 -- }}
 
 -- Default modkey.
@@ -214,18 +214,18 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
     -- {{ Applications
-    awful.key({}, "#79", function () awful.util.spawn("/usr/bin/google-chrome") end),  -- XF86WWW
-    awful.key({}, "#158", function () awful.util.spawn("/usr/bin/google-chrome") end),  -- XF86WWW
-    awful.key({}, "#180", function () awful.util.spawn("/usr/bin/google-chrome") end),  -- XF86WWW
-    awful.key({}, "#148", function () awful.util.spawn("/usr/bin/gnome-calculator") end),  -- XF86Calculator
-    awful.key({}, "#163", function () awful.util.spawn("/usr/bin/google-chrome http://mail.google.com/") end),  -- XF86Mail
-    awful.key({}, "#122", function () awful.util.spawn("/usr/bin/amixer -q sset PCM 2dB-") end),  -- XF86AudioLowerVolume
-    awful.key({}, "#123", function () awful.util.spawn("/usr/bin/amixer -q sset PCM 2dB+") end),  -- XF86AudioRaiseVolume
-    awful.key({ modkey, }, "f", function () awful.util.spawn("/usr/bin/nautilus --no-desktop") end),
-    awful.key({ modkey, }, "g", function () awful.util.spawn("/usr/bin/gvim") end),
-    awful.key({ modkey, }, "p", function () awful.util.spawn("/usr/bin/pidgin") end),
-    awful.key({ modkey, }, "s", function () awful.util.spawn("/usr/bin/skype") end),
-    awful.key({ modkey, }, "c", function () awful.util.spawn("/usr/bin/clementine") end),
+        awful.key({}, "#79", function () awful.util.spawn(chrome) end),  -- XF86WWW
+        awful.key({}, "#158", function () awful.util.spawn(chrome) end),  -- XF86WWW
+        awful.key({}, "#180", function () awful.util.spawn(chrome) end),  -- XF86WWW
+        awful.key({}, "#148", function () awful.util.spawn(calculator) end),  -- XF86Calculator
+        awful.key({}, "#163", function () awful.util.spawn(chrome_mail) end),  -- XF86Mail
+        awful.key({}, "#122", function () awful.util.spawn(amixer_lower) end),  -- XF86AudioLowerVolume
+        awful.key({}, "#123", function () awful.util.spawn(amixer_raise) end),  -- XF86AudioRaiseVolume
+        awful.key({ modkey, }, "f", function () awful.util.spawn(nautilus) end),
+        awful.key({ modkey, }, "g", function () awful.util.spawn(gvim) end),
+        awful.key({ modkey, }, "p", function () awful.util.spawn(pidgin) end),
+        awful.key({ modkey, }, "s", function () awful.util.spawn(skype) end),
+        awful.key({ modkey, }, "c", function () awful.util.spawn(clementine) end),
     -- }}
     awful.key({ modkey, }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey, }, "Right",  awful.tag.viewnext       ),
