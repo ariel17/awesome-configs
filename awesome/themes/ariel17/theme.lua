@@ -2,17 +2,20 @@
 -- Default awesome theme --
 ---------------------------
 
+themes_dir = "/etc/xdg/awesome/themes"
+current_dir = themes_dir .. "/ariel17"
+
 theme = {}
 
 theme.font          = "Anonymous 8"
 
 theme.bg_normal     = "#222222"
-theme.bg_focus      = "#535d6c"
+theme.bg_focus      = "#ccccff"
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#444444"
 
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
+theme.fg_normal     = "#ffffff"
+theme.fg_focus      = "#000000"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
@@ -75,7 +78,7 @@ theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/defau
 
 -- You can use your own command to set your wallpaper
 -- Default: "awsetbg /usr/share/awesome/themes/default/background.png"
-theme.wallpaper_cmd = { "awsetbg /home/ariel17/.background.jpg" }
+theme.wallpaper_cmd = { "awsetbg " .. current_dir .. "/background.jpg" }
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"
