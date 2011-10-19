@@ -1,0 +1,16 @@
+My customized Awesome WM configuration files
+############################################
+
+
+Author
+------
+
+Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)
+
+
+Description
+-----------
+
+This is my version for the configuration of Awesome Window Manager. It just
+links the current repositoty to the default config directory in Ubuntu
+distribution. Hope this be useful for somebody :)
