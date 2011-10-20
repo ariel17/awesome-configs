@@ -140,6 +140,7 @@ editor_cmd = terminal .. " -e " .. editor
     qsynergy = "/usr/bin/quicksynergy"
     dropbox = "/usr/bin/dropbox"
     dropbox_start = dropbox .. " start"
+    conky = "/usr/bin/conky"
     deadkeys = "/usr/bin/setxkbmap us altgr-intl"
 -- }}
 
