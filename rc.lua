@@ -29,6 +29,55 @@ function run_once(prg,arg_string,pname,screen)
 end
 -- }}
 
+-- {{ Function batteryInfo
+-- Returns a string with battery info
+function batteryInfo(adapter)
+     spacer = " "
+     local fcur = io.open("/sys/class/power_supply/"..adapter.."/charge_now")    
+     local fcap = io.open("/sys/class/power_supply/"..adapter.."/charge_full")
+     local fsta = io.open("/sys/class/power_supply/"..adapter.."/status")
+     local cur = fcur:read()
+     local cap = fcap:read()
+     local sta = fsta:read()
+     local battery = math.floor(cur * 100 / cap)
+     if sta:match("Charging") then
+         dir = "^"
+         battery = "A/C ("..battery..")"
+     elseif sta:match("Discharging") then
+         dir = "v"
+         if tonumber(battery) > 25 and tonumber(battery) < 75 then
+             battery = battery
+         elseif tonumber(battery) < 25 then
+             if tonumber(battery) < 10 then
+                 naughty.notify({ title      = "Battery Warning"
+                                , text       = "Battery low!"..spacer..battery.."%"..spacer.."left!"
+                                , timeout    = 5
+                                , position   = "top_right"
+                                , fg         = beautiful.fg_focus
+                                , bg         = beautiful.bg_focus
+                                })
+             end
+             battery = battery
+         else
+             battery = battery
+         end
+     else
+         dir = "="
+         battery = "A/C"
+     end
+     batterywidget.text = spacer.."Bat:"..spacer..dir..battery..dir..spacer
+     fcur:close()
+     fcap:close()
+     fsta:close()
+ end
+-- }}
+
+-- {{ Register the function with hook
+awful.hooks.timer.register(20, function()
+     batteryInfo("BAT0")
+ end)
+-- }}
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 -- Default: "/usr/share/awesome/themes/default/theme.lua"
@@ -120,6 +169,9 @@ mytextclock = awful.widget.textclock({ align = "right" })
 -- Create a systray
 mysystray = widget({ type = "systray" })
 
+-- the battery status widget
+batterywidget = widget({type = "textbox", name = "batterywidget", align = "right" })
+
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -195,6 +247,7 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s],
+        batterywidget,
         mytextclock,
         s == 1 and mysystray or nil,
         mytasklist[s],
