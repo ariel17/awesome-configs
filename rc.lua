@@ -29,53 +29,92 @@ function run_once(prg,arg_string,pname,screen)
 end
 -- }}
 
--- {{ Function batteryInfo
--- Returns a string with battery info
-function batteryInfo(adapter)
-     spacer = " "
-     local fcur = io.open("/sys/class/power_supply/"..adapter.."/charge_now")    
-     local fcap = io.open("/sys/class/power_supply/"..adapter.."/charge_full")
-     local fsta = io.open("/sys/class/power_supply/"..adapter.."/status")
-     local cur = fcur:read()
-     local cap = fcap:read()
-     local sta = fsta:read()
-     local battery = math.floor(cur * 100 / cap)
-     if sta:match("Charging") then
-         dir = "^"
-         battery = "A/C ("..battery..")"
-     elseif sta:match("Discharging") then
-         dir = "v"
-         if tonumber(battery) > 25 and tonumber(battery) < 75 then
-             battery = battery
-         elseif tonumber(battery) < 25 then
-             if tonumber(battery) < 10 then
-                 naughty.notify({ title      = "Battery Warning"
-                                , text       = "Battery low!"..spacer..battery.."%"..spacer.."left!"
-                                , timeout    = 5
-                                , position   = "top_right"
-                                , fg         = beautiful.fg_focus
-                                , bg         = beautiful.bg_focus
-                                })
-             end
-             battery = battery
-         else
-             battery = battery
-         end
-     else
-         dir = "="
-         battery = "A/C"
-     end
-     batterywidget.text = spacer.."Bat:"..spacer..dir..battery..dir..spacer
-     fcur:close()
-     fcap:close()
-     fsta:close()
- end
+-- {{ Function volume & registration
+cardid  = 0
+channel = "Master"
+function volume (mode, widget)
+    local cardid  = 0
+    local channel = "Master"
+    if mode == "update" then
+        local status = io.popen("amixer -c " .. cardid .. " -- sget " .. channel):read("*all")
+        
+        local volume = tonumber(string.match(status, "(%d?%d?%d)%%"))
+
+        status = string.match(status, "%[(o[^%]]*)%]")
+
+        local color = "#FF0000"
+        if string.find(status, "on", 1, true) then
+             color = "#00FF00"
+        end
+        status = ""
+        for i = 1, math.floor(volume / 10) do
+            status = status .. "|"
+        end
+        for i = math.floor(volume / 10) + 1, 10 do
+            status = status .. "-"
+        end
+        status = "-[" ..status .. "]+"
+        widget.text = "" .. status .. "|"
+    elseif mode == "up" then
+        os.execute("amixer -q -c " .. cardid .. " sset " .. channel .. " 5%+")
+        volume("update", widget)
+    elseif mode == "down" then
+        os.execute("amixer -q -c " .. cardid .. " sset " .. channel .. " 5%-")
+        volume("update", widget)
+    else
+        os.execute("amixer -c " .. cardid .. " sset " .. channel .. " toggle")
+        volume("update", widget)
+    end
+end
+
+awful.hooks.timer.register(10, function () volume("update", tb_volume) end)
 -- }}
 
--- {{ Register the function with hook
-awful.hooks.timer.register(20, function()
-     batteryInfo("BAT0")
- end)
+-- {{ Function batteryInfo & registration
+-- Returns a string with battery info
+function batteryInfo(adapter)
+    spacer = " "
+    local fcur = io.open("/sys/class/power_supply/"..adapter.."/charge_now")    
+    local fcap = io.open("/sys/class/power_supply/"..adapter.."/charge_full")
+    local fsta = io.open("/sys/class/power_supply/"..adapter.."/status")
+    local cur = fcur:read()
+    local cap = fcap:read()
+    local sta = fsta:read()
+    local battery = math.floor(cur * 100 / cap)
+    if sta:match("Charging") then
+        dir = "^"
+        battery = "A/C ("..battery..")"
+    elseif sta:match("Discharging") then
+        dir = "v"
+        if tonumber(battery) > 25 and tonumber(battery) < 75 then
+            battery = battery
+        elseif tonumber(battery) < 25 then
+            if tonumber(battery) < 10 then
+                naughty.notify({ title      = "Battery Warning"
+                               , text       = "Battery low!"..spacer..battery.."%"..spacer.."left!"
+                               , timeout    = 5
+                               , position   = "top_right"
+                               , fg         = beautiful.fg_focus
+                               , bg         = beautiful.bg_focus
+                               })
+            end
+            battery = battery
+        else
+            battery = battery
+        end
+    else
+        dir = "="
+        battery = "A/C"
+    end
+    batterywidget.text = spacer.."Bat:"..spacer..dir..battery..dir..spacer
+    fcur:close()
+    fcap:close()
+    fsta:close()
+end
+
+awful.hooks.timer.register(5, function()
+    batteryInfo("BAT0")
+end)
 -- }}
 
 -- {{{ Variable definitions
@@ -93,9 +132,6 @@ editor_cmd = terminal .. " -e " .. editor
     chrome = "/usr/bin/google-chrome"
     calculator = "/usr/bin/gnome-calculator"
     chrome_mail = chrome .. " http://mail.google.com"
-    amixer = "/usr/bin/amixer"
-    amixer_lower = amixer .. " -q sset PCM 2dB-"
-    amixer_raise = " -q sset PCM 2dB+"
     nautilus = "/usr/bin/nautilus --no-desktop"
     gvim = "/usr/bin/gvim"
     pidgin = "/usr/bin/pidgin"
@@ -165,6 +201,15 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
+
+-- Volume widget
+tb_volume = widget({ type = "textbox", name = "tb_volume", align = "right" })
+tb_volume:buttons({
+    button({ }, 4, function () volume("up", tb_volume) end),
+    button({ }, 5, function () volume("down", tb_volume) end),
+    button({ }, 1, function () volume("mute", tb_volume) end)
+})
+volume("update", tb_volume)
 
 -- Create a systray
 mysystray = widget({ type = "systray" })
@@ -244,10 +289,11 @@ for s = 1, screen.count() do
             mylauncher,
             mytaglist[s],
             mypromptbox[s],
-            layout = awful.widget.layout.horizontal.leftright
+            layout = awful.widget.layout.horizontal.leftright,
         },
         mylayoutbox[s],
         batterywidget,
+        tb_volume,
         mytextclock,
         s == 1 and mysystray or nil,
         mytasklist[s],
@@ -272,14 +318,15 @@ globalkeys = awful.util.table.join(
         awful.key({}, "#180", function () awful.util.spawn(chrome) end),  -- XF86WWW
         awful.key({}, "#148", function () awful.util.spawn(calculator) end),  -- XF86Calculator
         awful.key({}, "#163", function () awful.util.spawn(chrome_mail) end),  -- XF86Mail
-        awful.key({}, "#122", function () awful.util.spawn(amixer_lower) end),  -- XF86AudioLowerVolume
-        awful.key({}, "#123", function () awful.util.spawn(amixer_raise) end),  -- XF86AudioRaiseVolume
         awful.key({ modkey, }, "f", function () awful.util.spawn(nautilus) end),
         awful.key({ modkey, }, "g", function () awful.util.spawn(gvim) end),
         awful.key({ modkey, }, "p", function () awful.util.spawn(pidgin) end),
         awful.key({ modkey, }, "s", function () awful.util.spawn(skype) end),
         awful.key({ modkey, }, "c", function () awful.util.spawn(clementine) end),
     -- }}
+    awful.key({ }, "#121", function () volume("mute", tb_volume) end),  -- XF86AudioMute 
+    awful.key({ }, "#122", function () volume("down", tb_volume) end),  -- XF86AudioLowerVolume
+    awful.key({ }, "#123", function () volume("up",   tb_volume) end),  -- XF86AudioRaiseVolume
     awful.key({ modkey, }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey, }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey, }, "Escape", awful.tag.history.restore),
@@ -495,7 +542,6 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 run_once("/usr/bin/dropbox","start")
 run_once("/usr/bin/nm-applet")
 run_once("/usr/bin/bluetooth-applet")
-run_once("/usr/bin/gnome-sound-applet")
 run_once("/usr/bin/conky")
 run_once("/usr/bin/pidgin")
 run_once("/usr/bin/skype")
