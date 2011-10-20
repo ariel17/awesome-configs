@@ -140,6 +140,7 @@ editor_cmd = terminal .. " -e " .. editor
     qsynergy = "/usr/bin/quicksynergy"
     dropbox = "/usr/bin/dropbox"
     dropbox_start = dropbox .. " start"
+    deadkeys = "/usr/bin/setxkbmap us altgr-intl"
 -- }}
 
 -- Default modkey.
@@ -544,4 +545,5 @@ run_once("/usr/bin/nm-applet")
 run_once("/usr/bin/bluetooth-applet")
 run_once(conky)
 run_once(qsynergy)
+run_once(deadkeys)
 -- }}

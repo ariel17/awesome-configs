@@ -48,6 +48,7 @@ Debian_menu["Debian_Applications_Network_Communication"] = {
 	{"Evolution","/usr/bin/evolution","/usr/share/pixmaps/evolution.xpm"},
 	{"GNOME SSH Tunnel Manager","gstm"},
 	{"Pidgin","/usr/bin/pidgin","/usr/share/pixmaps/pidgin-menu.xpm"},
+	{"Remmina","/usr/bin/remmina"},
 	{"Telnet", "x-terminal-emulator -e ".."/usr/bin/telnet"},
 	{"Vinagre","vinagre"},
 	{"Xbiff","xbiff"},
