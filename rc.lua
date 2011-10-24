@@ -501,6 +501,8 @@ awful.rules.rules = {
     -- tags number 8 - screen 1.
     { rule = { class = "QuickSynergy" },            
       properties = { tag = tags[1][8], maximized_vertical = true, maximized_horizontal = true } },
+    { rule = { class = "Transmission" },            
+      properties = { tag = tags[1][8], maximized_vertical = true, maximized_horizontal = true } },  
     -- tags number 9 - screen 1.
 }
 -- }}}
