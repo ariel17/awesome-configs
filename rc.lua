@@ -142,6 +142,7 @@ editor_cmd = terminal .. " -e " .. editor
     dropbox_start = dropbox .. " start"
     conky = "/usr/bin/conky"
     deadkeys = "/usr/bin/setxkbmap us altgr-intl"
+    transmission = "/usr/bin/transmission-gtk"
 -- }}
 
 -- Default modkey.
@@ -325,6 +326,7 @@ globalkeys = awful.util.table.join(
         awful.key({ modkey, }, "p", function () awful.util.spawn(pidgin) end),
         awful.key({ modkey, }, "s", function () awful.util.spawn(skype) end),
         awful.key({ modkey, }, "c", function () awful.util.spawn(clementine) end),
+        awful.key({ modkey, }, "t", function () awful.util.spawn(transmission) end),
     -- }}
     awful.key({ }, "#121", function () volume("mute", tb_volume) end),  -- XF86AudioMute 
     awful.key({ }, "#122", function () volume("down", tb_volume) end),  -- XF86AudioLowerVolume
