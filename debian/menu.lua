@@ -48,6 +48,7 @@ Debian_menu["Debian_Applications_Network_Communication"] = {
 	{"Evolution","/usr/bin/evolution","/usr/share/pixmaps/evolution.xpm"},
 	{"GNOME SSH Tunnel Manager","gstm"},
 	{"Pidgin","/usr/bin/pidgin","/usr/share/pixmaps/pidgin-menu.xpm"},
+	{"Remmina","/usr/bin/remmina"},
 	{"Telnet", "x-terminal-emulator -e ".."/usr/bin/telnet"},
 	{"Vinagre","vinagre"},
 	{"Xbiff","xbiff"},
@@ -102,6 +103,7 @@ Debian_menu["Debian_Applications_Shells"] = {
 	{"Bash", "x-terminal-emulator -e ".."/bin/bash --login"},
 	{"Dash", "x-terminal-emulator -e ".."/bin/dash -i"},
 	{"Sh", "x-terminal-emulator -e ".."/bin/sh --login"},
+	{"Zsh", "x-terminal-emulator -e ".."/bin/zsh4"},
 }
 Debian_menu["Debian_Applications_Sound"] = {
 	{"Audacity","/usr/bin/audacity","/usr/share/pixmaps/audacity32.xpm"},
