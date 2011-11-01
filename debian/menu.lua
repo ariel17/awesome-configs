@@ -177,6 +177,9 @@ Debian_menu["Debian_Applications_Text"] = {
 	{"Character map","/usr/bin/gucharmap"},
 	{"Fortune","sh -c 'while /usr/games/fortune | col -x | xmessage -center -buttons OK:1,Another:0 -default OK -file - ; do :; done'"},
 }
+Debian_menu["Debian_Applications_Tools"] = {
+	{"Xtrlock","xtrlock"},
+}
 Debian_menu["Debian_Applications_Video"] = {
 	{"Totem","/usr/bin/totem","/usr/share/pixmaps/totem.xpm"},
 	{"VLC media player","/usr/bin/qvlc","/usr/share/icons/hicolor/32x32/apps/vlc.xpm"},
@@ -204,6 +207,7 @@ Debian_menu["Debian_Applications"] = {
 	{ "System", Debian_menu["Debian_Applications_System"] },
 	{ "Terminal Emulators", Debian_menu["Debian_Applications_Terminal_Emulators"] },
 	{ "Text", Debian_menu["Debian_Applications_Text"] },
+	{ "Tools", Debian_menu["Debian_Applications_Tools"] },
 	{ "Video", Debian_menu["Debian_Applications_Video"] },
 	{ "Viewers", Debian_menu["Debian_Applications_Viewers"] },
 }
