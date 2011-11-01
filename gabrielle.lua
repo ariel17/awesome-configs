@@ -145,6 +145,7 @@ editor_cmd = terminal .. " -e " .. editor
     transmission = "/usr/bin/transmission-gtk"
     remmina = "/usr/bin/remmina"
     xtrlock = "/usr/bin/xtrlock"
+    screenshot = "/usr/bin/scrot /tmp/screenshot.png"
 -- }}
 
 -- Default modkey.
@@ -402,6 +403,9 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",
+
+    awful.key({ }, "Print", function () awful.util.spawn(screenshot) end),
+
         function (c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
