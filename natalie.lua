@@ -141,6 +141,7 @@ editor_cmd = terminal .. " -e " .. editor
     dropbox = "/usr/bin/dropbox"
     dropbox_start = dropbox .. " start"
     remmina = "/usr/bin/remmina"
+    xtrlock = "/usr/bin/xtrlock"
 -- }}
 
 -- Default modkey.
@@ -325,6 +326,7 @@ globalkeys = awful.util.table.join(
         awful.key({ modkey, }, "s", function () awful.util.spawn(skype) end),
         awful.key({ modkey, }, "c", function () awful.util.spawn(clementine) end),
         awful.key({ modkey, }, "r", function () awful.util.spawn(remmina) end),
+        awful.key({ modkey, }, "l", function () awful.util.spawn(xtrlock) end),
     -- }}
     -- awful.key({ }, "#121", function () volume("mute", tb_volume) end),  -- XF86AudioMute 
     -- awful.key({ }, "#122", function () volume("down", tb_volume) end),  -- XF86AudioLowerVolume
