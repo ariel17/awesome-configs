@@ -3,20 +3,41 @@ My customized Awesome WM configuration files
 
 
 Author
-------
+******
 
 Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)
 
 
 Description
------------
+***********
 
-This is my version for the configuration of Awesome Window Manager. It just
-links the current repositoty to the default config directory in Ubuntu
-distribution. Hope this be useful for somebody :).
+This is my version for the configuration of Awesome Window Manager
+(http://awesome.naquadah.org/). It just links the current repositoty to the
+default config directory in Ubuntu distribution.
+
+In my work, I have 2 PCs connected between through Synergy
+(http://synergy-foss.org/), one named "Gabrielle" and other "Natalie" (I always
+use women names). Although I choose Ubuntu anytime I must install from
+scratch an OS, some preference in those machines are not same; basically
+because Gabrielle is a notebook and Natalie is a desktop :).
 
 
-Awesome Web
------------
+Installing new configurations
+*****************************
 
-http://awesome.naquadah.org/
+If some changes has been done, to install them is necessary to run the command
+`sudo fab install:girl=gabrielle` (or `girl=natalie`) and if the syntax is OK
+a legend appears:
+
+`✔ Configuration file syntax OK.`
+`You can reload your new configuration (or start) Awesome WM.`
+
+But if instead there is an error in the file, a message like this appears:
+
+`✘ Configuration file syntax error.`
+`Fatal error: local() encountered an error (return code 1) while executing '/usr/bin/awesome --config /etc/xdg/awesome/rc.lua --check'`
+`Aborting.`
+
+
+
+That's all :). I hope this be usefull for someone. Enjoy!
