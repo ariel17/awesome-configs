@@ -41,7 +41,8 @@ def link(girl):
     Links configuration file to the one contained in this repository.
     """
     cf = os.path.join(LOCAL_DIR, "%s.lua" % girl)
-    local("/bin/ln -s %s %s" % (cf, CONFIG_DIR))
+    local("/bin/ln -s %s %s" % (LOCAL_DIR, CONFIG_DIR))
+    local("/bin/ln -s %s %s" % (cf, CONFIG_FILE))
     if local("%s --config %s --check" % (AWESOME, CONFIG_FILE)).\
             return_code == 0:
         print green("You can reload your new configuration (or start) "\
