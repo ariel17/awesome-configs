@@ -25,9 +25,10 @@ because Gabrielle is a notebook and Natalie is a desktop :).
 Installing new configurations
 *****************************
 
-If some changes has been done, to install them is necessary to run the command
-`sudo fab install:girl=gabrielle` (or `girl=natalie`) and if the syntax is OK
-a legend appears:
+I've used Fabric (http://docs.fabfile.org/en/1.3.1/index.html) to automate
+installation. If some changes has been done, to install them is necessary to
+run the command `sudo fab install:girl=gabrielle` (or `girl=natalie`) and if
+the syntax is OK a legend appears:
 
 `✔ Configuration file syntax OK.`
 `You can reload your new configuration (or start) Awesome WM.`
