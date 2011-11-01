@@ -18,11 +18,11 @@ LOCAL_DIR = os.path.realpath(os.path.dirname(__file__))
 AWESOME = "/usr/bin/awesome"
 
 
-def backup():
+def delete(path):
     """
-    Checks if configuration file already exists; if it does, deletes it.
+    deletes a given path.
     """
-    local("/bin/rm -rf %s" % CONFIG_DIR)
+    local("/bin/rm -rf %s" % path)
 
 
 def install(girl=None):
@@ -32,7 +32,7 @@ def install(girl=None):
     if not girl:
         print red("You forgot to bring the girl!")
         exit(1)
-    backup()
+    delete(CONFIG_DIR)
     link(girl)
 
 
@@ -42,6 +42,7 @@ def link(girl):
     """
     cf = os.path.join(LOCAL_DIR, "%s.lua" % girl)
     local("/bin/ln -s %s %s" % (LOCAL_DIR, CONFIG_DIR))
+    delete(CONFIG_FILE)
     local("/bin/ln -s %s %s" % (cf, CONFIG_FILE))
     if local("%s --config %s --check" % (AWESOME, CONFIG_FILE)).\
             return_code == 0:
