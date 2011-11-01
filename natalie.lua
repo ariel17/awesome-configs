@@ -140,6 +140,7 @@ editor_cmd = terminal .. " -e " .. editor
     qsynergy = "/usr/bin/synergyc 192.168.23.137"
     dropbox = "/usr/bin/dropbox"
     dropbox_start = dropbox .. " start"
+    remmina = "/usr/bin/remmina"
 -- }}
 
 -- Default modkey.
@@ -323,6 +324,7 @@ globalkeys = awful.util.table.join(
         awful.key({ modkey, }, "p", function () awful.util.spawn(pidgin) end),
         awful.key({ modkey, }, "s", function () awful.util.spawn(skype) end),
         awful.key({ modkey, }, "c", function () awful.util.spawn(clementine) end),
+        awful.key({ modkey, }, "r", function () awful.util.spawn(remmina) end),
     -- }}
     -- awful.key({ }, "#121", function () volume("mute", tb_volume) end),  -- XF86AudioMute 
     -- awful.key({ }, "#122", function () volume("down", tb_volume) end),  -- XF86AudioLowerVolume
