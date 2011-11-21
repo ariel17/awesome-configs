@@ -130,6 +130,7 @@ editor_cmd = terminal .. " -e " .. editor
 -- {{ Variables for Applications 
     terminator = "/usr/bin/terminator -m -b"
     chrome = "/usr/bin/google-chrome"
+    firefox = "/usr/bin/firefox"
     calculator = "/usr/bin/gnome-calculator"
     chrome_mail = chrome .. " http://mail.google.com"
     nautilus = "/usr/bin/nautilus --no-desktop"
@@ -485,6 +486,8 @@ awful.rules.rules = {
     { rule = { class = "Chromium" },
       properties = { tag = tags[1][1], maximized_vertical = true, maximized_horizontal = true } },
     { rule = { class = "Google" },                                                                      
+      properties = { tag = tags[1][1], maximized_vertical = true, maximized_horizontal = true } },
+    { rule = { class = "Firefox" },
       properties = { tag = tags[1][1], maximized_vertical = true, maximized_horizontal = true } },
     -- tags number 2 - screen 1.
     { rule = { class = "XTerm" },
