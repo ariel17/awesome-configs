@@ -147,6 +147,7 @@ editor_cmd = terminal .. " -e " .. editor
     remmina = "/usr/bin/remmina"
     xtrlock = "/usr/bin/xtrlock"
     screenshot = "/usr/bin/scrot /tmp/screenshot.png"
+    eclipse = "/opt/eclipse/eclipse"
 -- }}
 
 -- Default modkey.
@@ -331,6 +332,7 @@ globalkeys = awful.util.table.join(
         awful.key({ modkey, }, "s", function () awful.util.spawn(skype) end),
         awful.key({ modkey, }, "c", function () awful.util.spawn(clementine) end),
         awful.key({ modkey, }, "t", function () awful.util.spawn(transmission) end),
+        awful.key({ modkey, }, "i", function () awful.util.spawn(eclipse) end),
         awful.key({ modkey, }, "e", function () awful.util.spawn(remmina) end),
         awful.key({ modkey, }, "l", function () awful.util.spawn(xtrlock) end),
     -- }}
@@ -496,6 +498,8 @@ awful.rules.rules = {
       properties = { tag = tags[1][2], maximized_vertical = true, maximized_horizontal = true } },
     -- tags number 3 - screen 1.
     { rule = { class = "Gvim" },
+      properties = { tag = tags[1][3], maximized_vertical = true, maximized_horizontal = true } },
+    { rule = { class = "Eclipse" },
       properties = { tag = tags[1][3], maximized_vertical = true, maximized_horizontal = true } },
     -- tags number 4 - screen 1.
     { rule = { class = "Remmina" },
